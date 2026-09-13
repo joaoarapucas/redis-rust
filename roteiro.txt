@@ -1,0 +1,85 @@
+ADD cpf_a 52998224725
+GET cpf_a
+ADD cpf_b 12345678909
+GET cpf_b
+ADD cpf_c 12345678900
+ADD cpf_d 11111111111
+ADD cpf_e 00000000000
+ADD cpf_f 99999999999
+ADD cpf_joao 28746351973
+ADD cpf_maria 28746351973
+ADD cpf_joao 28746351973
+GET cpf_maria
+ADD cpf_outro 52998224725
+ADD cpf_g 5299822472
+ADD cpf_h 529982247250
+ADD cpf_i 529.982.247-25
+ADD cpf_j 5299822472a
+ADD cpf_k
+ADD data_a 2022-10-23
+GET data_a
+ADD data_b 2023-01-05
+GET data_b
+ADD data_c 2024-02-29
+GET data_c
+ADD data_d 2000-02-29
+GET data_d
+ADD data_e 1900-02-29
+ADD data_f 2100-02-29
+ADD data_g 2023-02-29
+ADD data_h 2023-04-31
+ADD data_i 2023-06-31
+ADD data_j 2023-01-32
+ADD data_k 2023-13-01
+ADD data_l 2023-00-10
+ADD data_m 2023-01-00
+ADD data_n 2023-1-5
+ADD data_o 23-01-05
+ADD data_p 05/01/2023
+ADD data_q 20230105
+ADD data_r
+ADD nome_zezinho Jose
+GET nome_zezinho
+ADD contador 42
+GET contador
+ADD cpfx 123
+GET cpfx
+GET chave_que_nao_existe
+GET
+ADD
+DELETE cpf_a
+add cpf_x 52998224725
+
+ADD cpf_z 64028193796
+ADD cpf_z 11111111111
+GET cpf_z
+ADD ip_a 192.168.1.1
+GET ip_a
+ADD ip_b 10.0.0.1
+GET ip_b
+ADD ip_zeros 192.168.001.001
+GET ip_zeros
+ADD ip_max 255.255.255.255
+GET ip_max
+ADD ip_min 0.0.0.0
+GET ip_min
+ADD ip_c 256.0.0.1
+ADD ip_d 1.2.3
+ADD ip_e 1.2.3.4.5
+ADD ip_f 1..2.3
+ADD ip_g .1.2.3
+ADD ip_h 1.2.3.
+ADD ip_i 1.2.3.abc
+ADD ip_j -1.0.0.1
+ADD ip_k 1.2.3.1234
+ADD ip_l
+ADD nome_dispositivo roteador da sala
+GET nome_dispositivo
+ADD ipx 123
+GET ipx
+ADD ip_a 10.0.0.1
+GET ip_a
+ADD ip_a 999.1.1.1
+GET ip_a
+GET ip_desconhecida
+EXIT

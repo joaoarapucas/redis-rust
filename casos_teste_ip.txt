@@ -1,0 +1,84 @@
+# EP01 - Casos de teste: extensao de IPv4 (prefixo ip_)
+#
+# IMPORTANTE: os casos sao CUMULATIVOS. Leia o arquivo como uma unica sessao,
+# de cima para baixo, num banco que comeca vazio. O que um ADD grava continua
+# gravado nos casos seguintes.
+#
+# "ERRO" significa que a operacao deve falhar reportando o motivo, e nao
+# derrubar o processo nem gravar o valor no banco.
+
+# ---------------------------------------------------------------------------
+# Extensao IPv4 - entrada e um endereco pontilhado (a.b.c.d), saida e a
+# representacao binaria (um byte por octeto)
+# ---------------------------------------------------------------------------
+
+ADD ip_a 192.168.1.1        -> OK
+GET ip_a                    -> 11000000.10101000.00000001.00000001
+
+ADD ip_b 10.0.0.1           -> OK
+GET ip_b                    -> 00001010.00000000.00000000.00000001
+
+# Armadilha: zero a esquerda no octeto e aceito na entrada, mas o valor
+# gravado tem que ser o normalizado (sem os zeros), nao o texto literal.
+ADD ip_zeros 192.168.001.001 -> OK
+GET ip_zeros                -> 11000000.10101000.00000001.00000001
+
+# Limites validos da faixa de cada octeto: 0 e 255 sao permitidos
+ADD ip_max 255.255.255.255  -> OK
+GET ip_max                  -> 11111111.11111111.11111111.11111111
+
+ADD ip_min 0.0.0.0          -> OK
+GET ip_min                  -> 00000000.00000000.00000000.00000000
+
+# Octeto fora da faixa (0 a 255)
+ADD ip_c 256.0.0.1          -> ERRO (octeto acima de 255)
+
+# Numero errado de octetos
+ADD ip_d 1.2.3              -> ERRO (faltam octetos, esperados 4)
+ADD ip_e 1.2.3.4.5          -> ERRO (excesso de octetos, esperados 4)
+
+# Pontuacao invalida: pontos duplicados, ponto no inicio, ponto no fim
+ADD ip_f 1..2.3             -> ERRO (pontos duplicados)
+ADD ip_g .1.2.3             -> ERRO (ponto no inicio)
+ADD ip_h 1.2.3.             -> ERRO (ponto no fim)
+
+# Caracteres que nao sao digito nem ponto
+ADD ip_i 1.2.3.abc          -> ERRO (caractere nao numerico)
+ADD ip_j -1.0.0.1           -> ERRO (caractere invalido)
+
+# Octeto com mais de 3 digitos (mesmo que o valor numerico coubesse em 255,
+# a entrada com 4+ digitos por octeto e rejeitada)
+ADD ip_k 1.2.3.1234         -> ERRO (octeto com mais de 3 digitos)
+
+# Valor vazio
+ADD ip_l                    -> ERRO (comando incompleto)
+
+# ---------------------------------------------------------------------------
+# Chaves sem o prefixo ip_ - devem passar direto, sem validacao nem formatacao
+# ---------------------------------------------------------------------------
+
+ADD nome_dispositivo roteador da sala -> OK
+GET nome_dispositivo                  -> roteador da sala
+
+# Uma chave que so LEMBRA o prefixo (sem o "_") nao deve ser capturada por ela
+ADD ipx 123                 -> OK
+GET ipx                     -> 123
+
+# ---------------------------------------------------------------------------
+# Sobrescrita: o segundo ADD e invalido, entao o valor anterior deve permanecer
+# ---------------------------------------------------------------------------
+
+ADD ip_a 10.0.0.1           -> OK
+GET ip_a                    -> 00001010.00000000.00000000.00000001
+
+ADD ip_a 999.1.1.1          -> ERRO (octeto acima de 255)
+GET ip_a                    -> 00001010.00000000.00000000.00000001
+
+# ---------------------------------------------------------------------------
+# Casos gerais
+# ---------------------------------------------------------------------------
+
+GET ip_desconhecida         -> ERRO (chave inexistente)
+
+# Encerramento: so o EXIT termina o processo
+EXIT                        -> encerra o programa

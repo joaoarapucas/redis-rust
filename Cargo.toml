@@ -1,0 +1,8 @@
+[package]
+name = "redis-rust"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+mlua = { version = "0.12.1", features = ["lua55"] }
+structopt = "0.3.17"
